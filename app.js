@@ -4,11 +4,11 @@ document.addEventListener('DOMContentLoaded', () => {
         {
             name: 'fries',
             img: 'images/fries.png'
-        },
+        },                             //0
         {
             name: 'cheeseburger',
             img: 'images/cheeseburger.png'
-        },
+        },                //1
         {
             name: 'ice-cream',
             img: 'images/ice-cream.png'
@@ -54,10 +54,8 @@ document.addEventListener('DOMContentLoaded', () => {
     cardArray.sort( () => 0.5 - Math.random() );
 
     const grid = document.querySelector('.grid');
-    console.log(grid);
 
      const resultDisplay = document.querySelector('#result');
-    console.log(resultDisplay);
 
     let cardsChosen = []; // проверять, что карточки совпали при клике
     let cardsChosenId = []; // мы смотрим, что кликнули на разные карточки
@@ -76,7 +74,26 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function flipCard() {
-        alert(123);
+        let cardId = this.getAttribute('data-id');
+        cardsChosenId.push(cardId);
+        cardsChosen.push(cardArray[cardId].name);
+        // если в cardChosen есть 2 элемента, то вызови функцию их сравнения
+        console.log(cardsChosen);
+        if(cardsChosen.length === 2) {
+          setTimeout(checkForMatch, 500);
+          cardsChosen = [];
+        }
+    }
+
+    function checkForMatch() {
+        //const cards = document.querySelectorAll('img');
+        const optionOneId = cardsChosenId[0];
+        const optionTwoId = cardsChosenId[1];
+        if(optionOneId !== optionTwoId)  {
+          alert('Карточки не одинаковые!')
+        } else {
+          alert('Вы кликнули на одну и ту же карточку!');
+        }
     }
 
     createBoard();
