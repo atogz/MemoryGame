@@ -78,18 +78,18 @@ document.addEventListener('DOMContentLoaded', () => {
         cardsChosenId.push(cardId);
         cardsChosen.push(cardArray[cardId].name);
         // если в cardChosen есть 2 элемента, то вызови функцию их сравнения
-        console.log(cardsChosen);
         if(cardsChosen.length === 2) {
           setTimeout(checkForMatch, 500);
-          cardsChosen = [];
         }
+
+     // comment 
     }
 
     function checkForMatch() {
         //const cards = document.querySelectorAll('img');
         const optionOneId = cardsChosenId[0];
         const optionTwoId = cardsChosenId[1];
-        if(optionOneId !== optionTwoId)  {
+        if(optionOneId != optionTwoId)  {
           alert('Карточки не одинаковые!')
         } else {
           alert('Вы кликнули на одну и ту же карточку!');
