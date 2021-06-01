@@ -77,23 +77,38 @@ document.addEventListener('DOMContentLoaded', () => {
         let cardId = this.getAttribute('data-id');
         cardsChosenId.push(cardId);
         cardsChosen.push(cardArray[cardId].name);
-        // если в cardChosen есть 2 элемента, то вызови функцию их сравнения
-        if(cardsChosen.length === 2) {
-          setTimeout(checkForMatch, 500);
-        }
 
-     // comment 
+        console.log('cardsChosen после добавления: ', cardsChosen);
+
+        this.setAttribute('src', cardArray[cardId].img)
+        if(cardsChosen.length === 2) {
+          setTimeout(() => {
+              checkForMatch();
+          }, 500);
+        }
     }
 
     function checkForMatch() {
-        //const cards = document.querySelectorAll('img');
+        const cards = document.querySelectorAll('img');
         const optionOneId = cardsChosenId[0];
         const optionTwoId = cardsChosenId[1];
+        let cardOne = cards[optionOneId];
+        let cardTwo = cards[optionTwoId];
         if(optionOneId != optionTwoId)  {
-          alert('Карточки не одинаковые!')
+            if(cardsChosen[0] === cardsChosen[1]) {
+                cardOne.classList.add("card-disabled");
+                cardTwo.classList.add("card-disabled");
+                cardOne.removeEventListener('click', flipCard);
+                cardTwo.removeEventListener("click", flipCard);
+            } else {
+                cardOne.setAttribute('src', 'images/blank.png');
+                cardTwo.setAttribute('src', 'images/blank.png');
+            }
         } else {
           alert('Вы кликнули на одну и ту же карточку!');
         }
+        cardsChosen = [];
+        cardsChosenId = [];
     }
 
     createBoard();
