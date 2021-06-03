@@ -100,10 +100,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 cardTwo.removeEventListener("click", flipCard);
                 cardsWon.push(cardsChosenNames);
 
-
                 // ОБНЛОВЛЯЕМ СЧЕТ
                 resultDisplay.textContent = cardsWon.length;
-
                 // ВЫИГРАЛИ
                 if(cardsWon.length === cardArray.length / 2) {
                     resultDisplay.textContent = "Поздравляем! Вы выиграли!";
@@ -113,7 +111,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 cardTwo.setAttribute('src', 'images/blank.png');
             }
         } else {
-          alert('Вы кликнули на одну и ту же карточку!');
           cardOne.setAttribute('src', "images/blank.png");
         }
         cardsChosenNames = [];
