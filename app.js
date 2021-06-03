@@ -2,6 +2,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Готовим начальные данные (init)
 
     const grid = document.querySelector('.grid');
+    const resetGameContainer = document.querySelector('.reset-game__container');
+    const resetGameButton = document.querySelector('.reset-game-button');
+    const resultDisplay = document.querySelector('#result');
     const cardArray = [
         {
             name: 'fries',
@@ -53,10 +56,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     ]
     let cardsWon = [];
-    const resultDisplay = document.querySelector('#result');
-    let cardsChosenNames = []; // проверять, что карточки совпали при клике
-    let cardsChosenId = []; // мы смотрим, что кликнули на разные карточки
-    const resetGameButton = document.querySelector('.reset-game-button');
+    let cardsChosenNames = [];
+    let cardsChosenId = [];
 
     resetGameButton.addEventListener('click', resetGame);
 
@@ -109,6 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 // ВЫИГРАЛИ
                 if(cardsWon.length === cardArray.length / 2) {
                     resultDisplay.textContent = "Поздравляем! Вы выиграли!";
+                    resetGameContainer.style.display = "flex";
                 }
             } else {
                 cardOne.setAttribute('src', 'images/blank.png');
@@ -131,6 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         cardsWon = [];
         resultDisplay.textContent = 0;
+        resetGameContainer.style.display = "none";
     }
 
     createBoard();
