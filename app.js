@@ -114,6 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } else {
           alert('Вы кликнули на одну и ту же карточку!');
+          cardOne.setAttribute('src', "images/blank.png");
         }
         cardsChosenNames = [];
         cardsChosenId = [];
