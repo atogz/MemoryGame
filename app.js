@@ -123,6 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
         for (let i = 0; i < cardArray.length; i++) {
             let card = document.querySelector(`img[data-id='${i}']`);
             card.setAttribute('src', 'images/blank.png');
+            card.addEventListener('click', flipCard);
             card.classList.remove('card-disabled');
         }
         cardsWon = [];
