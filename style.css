@@ -42,7 +42,7 @@ html, body {
 
 @media only screen and (max-width: 700px) {
     body {
-        overflow: hidden;
+        overflow-x: hidden;
     }
     .grid {
         max-width: 100%;
