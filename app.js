@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let cardId = this.getAttribute('data-id');
         cardsChosenId.push(cardId);
         cardsChosenNames.push(cardArray[cardId].name);
-        if(cardsChosenNames.length <= 2) {
+        if(cardsChosenNames.length < 3) {
             this.setAttribute('src', cardArray[cardId].img)
         }
         if(cardsChosenNames.length === 2) {
