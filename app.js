@@ -60,8 +60,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     resetGameButton.addEventListener('click', resetGame);
 
-    cardArray.sort( () => 0.5 - Math.random() ); // ненадежный метод случайной сортировки
-//Генерация доски с карточками
+
+    function randomize(array) {
+        array.sort( () => 0.5 - Math.random() ); // ненадежный метод случайной сортировки
+    }
+    randomize(cardArray);
+    //Генерация доски с карточками
     function createBoard() {
         for (let i = 0; i < cardArray.length; i++) {
             const card = document.createElement('img');
@@ -118,6 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function resetGame() {
+        randomize(cardArray);
         for (let i = 0; i < cardArray.length; i++) {
             let card = document.querySelector(`img[data-id='${i}']`);
             card.setAttribute('src', 'images/blank.png');
