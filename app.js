@@ -76,9 +76,9 @@ document.addEventListener('DOMContentLoaded', () => {
         let cardId = this.getAttribute('data-id');
         cardsChosenId.push(cardId);
         cardsChosenNames.push(cardArray[cardId].name);
-
-
-        this.setAttribute('src', cardArray[cardId].img)
+        if(cardsChosenNames.length <= 2) {
+            this.setAttribute('src', cardArray[cardId].img)
+        }
         if(cardsChosenNames.length === 2) {
           setTimeout(() => {
               checkForMatch();
