@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Готовим начальные данные (init)
+
+    const grid = document.querySelector('.grid');
     const cardArray = [
         {
             name: 'fries',
@@ -50,18 +52,15 @@ document.addEventListener('DOMContentLoaded', () => {
             img: 'images/hotdog.png'
         }
     ]
-
-    cardArray.sort( () => 0.5 - Math.random() );
-
-    const grid = document.querySelector('.grid');
-
-     const resultDisplay = document.querySelector('#result');
-
-    let cardsChosen = []; // проверять, что карточки совпали при клике
-    let cardsChosenId = []; // мы смотрим, что кликнули на разные карточки
     let cardsWon = [];
+    const resultDisplay = document.querySelector('#result');
+    let cardsChosenNames = []; // проверять, что карточки совпали при клике
+    let cardsChosenId = []; // мы смотрим, что кликнули на разные карточки
+    const resetGameButton = document.querySelector('.reset-game-button');
 
+    resetGameButton.addEventListener('click', resetGame);
 
+    cardArray.sort( () => 0.5 - Math.random() ); // ненадежный метод случайной сортировки
 //Генерация доски с карточками
     function createBoard() {
         for (let i = 0; i < cardArray.length; i++) {
@@ -76,12 +75,11 @@ document.addEventListener('DOMContentLoaded', () => {
     function flipCard() {
         let cardId = this.getAttribute('data-id');
         cardsChosenId.push(cardId);
-        cardsChosen.push(cardArray[cardId].name);
+        cardsChosenNames.push(cardArray[cardId].name);
 
-        console.log('cardsChosen после добавления: ', cardsChosen);
 
         this.setAttribute('src', cardArray[cardId].img)
-        if(cardsChosen.length === 2) {
+        if(cardsChosenNames.length === 2) {
           setTimeout(() => {
               checkForMatch();
           }, 500);
@@ -95,11 +93,21 @@ document.addEventListener('DOMContentLoaded', () => {
         let cardOne = cards[optionOneId];
         let cardTwo = cards[optionTwoId];
         if(optionOneId != optionTwoId)  {
-            if(cardsChosen[0] === cardsChosen[1]) {
+            if(cardsChosenNames[0] === cardsChosenNames[1]) {
                 cardOne.classList.add("card-disabled");
                 cardTwo.classList.add("card-disabled");
                 cardOne.removeEventListener('click', flipCard);
                 cardTwo.removeEventListener("click", flipCard);
+                cardsWon.push(cardsChosenNames);
+
+
+                // ОБНЛОВЛЯЕМ СЧЕТ
+                resultDisplay.textContent = cardsWon.length;
+
+                // ВЫИГРАЛИ
+                if(cardsWon.length === cardArray.length / 2) {
+                    resultDisplay.textContent = "Поздравляем! Вы выиграли!";
+                }
             } else {
                 cardOne.setAttribute('src', 'images/blank.png');
                 cardTwo.setAttribute('src', 'images/blank.png');
@@ -107,10 +115,24 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
           alert('Вы кликнули на одну и ту же карточку!');
         }
-        cardsChosen = [];
+        cardsChosenNames = [];
         cardsChosenId = [];
+    }
+
+    function resetGame() {
+        for (let i = 0; i < cardArray.length; i++) {
+            let card = document.querySelector(`img[data-id='${i}']`);
+            card.setAttribute('src', 'images/blank.png');
+            card.classList.remove('card-disabled');
+        }
+        cardsWon = [];
+        resultDisplay.textContent = 0;
     }
 
     createBoard();
 
- })
+ }) ;
+
+
+
+
